@@ -3,25 +3,70 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="scss/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Twittler</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   </head>
   <body>
     <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $tweetcontainer = $('.twittler-container');
+        $tweetcontainer.html('');
 
         var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+        var tweet;
+        var lengthChecker = 0;
+
+
+        function createTweet(){
+          if (streams.home.length > lengthChecker){
+            lengthChecker = streams.home.length;
+            tweet = streams.home[index];
+
+            var $tweetwrapper = $('<div class="tweetwrapper"></div>');
+            var $tweetuser = $('<a href="indy-tweet" class="indy-tweet-user"></div>');
+            var $timestamp = $('<div class="indy-tweet-timestamp"></div>');
+            var $tweet = $('<div class="indy-tweet"></div>');
+
+            $tweetuser.attr("href", tweet.user).text('@' + tweet.user);
+            $tweet.text(tweet.message);
+            $timestamp.text(tweet.created_at);
+
+
+            $tweet.prependTo($tweetwrapper);
+            $timestamp.prependTo($tweetwrapper);
+            $tweetuser.prependTo($tweetwrapper);
+            
+
+            // Put in container
+            $tweetwrapper.prependTo($tweetcontainer);
+            index += 1;
+          }
         }
+
+
+
+        setInterval(function(){
+          createTweet();
+        }, 100)
 
       });
 
     </script>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <div class="twittler-container"></div>
+      </div>
+    </div>
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>
