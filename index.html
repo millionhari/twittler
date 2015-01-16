@@ -15,12 +15,24 @@
     <script>
 
       $(document).ready(function(){
+
+
         var $tweetcontainer = $('.twittler-container');
         $tweetcontainer.html('');
 
         var index = streams.home.length - 1;
         var tweet;
         var lengthChecker = 0;
+        var userStreams = streams.users;
+        var currentUser = "";
+
+        var userGenerated = function(){
+          var arr = [];
+                  for (var x in userStreams[currentUser]){
+                    arr.unshift('<div class="tweetwrapper">'+'@'+userStreams[currentUser][x]['user'] + ' ' +userStreams[currentUser][x]['message']+'</div>')
+                  }
+                  return arr;
+              };
 
 
         function createTweet(){
@@ -29,18 +41,28 @@
             tweet = streams.home[index];
 
             var $tweetwrapper = $('<div class="tweetwrapper"></div>');
-            var $tweetuser = $('<a href="indy-tweet" class="indy-tweet-user"></div>');
+            var $tweetuser = $('<a class="indy-tweet-user" data-toggle="modal"></div>');
             var $timestamp = $('<div class="indy-tweet-timestamp"></div>');
             var $tweet = $('<div class="indy-tweet"></div>');
 
-            $tweetuser.attr("href", tweet.user).text('@' + tweet.user);
+
+            // $tweetuser.attr("href", tweet.user).text('@' + tweet.user);
+            $tweetuser.text('@' + tweet.user).attr("href", '#').click(function(){
+              currentUser = tweet.user;}).click(function(){
+              var tweetModal = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">Modal title</h4></div><div class="modal-body"><div class="tweetwrapper">' + userGenerated() + 
+              '</div></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div></div>';
+
+              $('body').prepend(tweetModal);
+            }).attr("data-target", '#myModal');
             $tweet.text(tweet.message);
             $timestamp.text(tweet.created_at);
-
+// onclick="myFunction()"
 
             $tweet.prependTo($tweetwrapper);
             $timestamp.prependTo($tweetwrapper);
             $tweetuser.prependTo($tweetwrapper);
+            $('.indy-tweet-user').on()
+
             
 
             // Put in container
@@ -57,13 +79,21 @@
 
       });
 
+
+
     </script>
+
+
+
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-10">
         <div class="twittler-container"></div>
       </div>
     </div>
+
+
+ 
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
