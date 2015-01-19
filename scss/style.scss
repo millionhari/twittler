@@ -1,3 +1,8 @@
+.twittler-container {
+	height: 590px;
+	overflow: auto;
+}
+
 .tweetwrapper {
 	background-color: #eee;
 	border-radius: 10px;
@@ -7,5 +12,42 @@
 
 .indy-tweet-user, .indy-tweet-timestamp {
 	display: inline-block;
-	padding-right: 10px;
+	padding-right: 5px;
+}
+
+.indy-tweet-user {
+	font-family: 'Arvo', serif;
+	font-weight: 100;
+}
+
+.indy-tweet {
+}
+
+.top-bar {
+	border-bottom: 1px solid black;
+	background-color: #333333;
+	margin-bottom: 10px;
+}
+
+ul.nav-bar {
+	margin-top: 10px;
+}
+
+.nav-bar li {
+	display: inline-block;
+	padding-right: 15px;
+	font-size: 2em;
+	color: white;
+
+	:hover {
+		color: #7299b1;
+		transition-timing-function: ease;
+		transition-duration: .4s;	
+	}
+}
+
+.side-bar {
+	// @extend .tweetwrapper;
+	// height: 300px;
+	// margin-bottom: 0;
 }

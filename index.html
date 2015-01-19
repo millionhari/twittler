@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="jquery.js"></script>
+    <script src="jquery.timeago.js" type="text/javascript"></script>
     <script src="data_generator.js"></script>
     <link rel="stylesheet" href="scss/style.css">
     <meta charset="utf-8">
@@ -10,12 +11,13 @@
     <title>Twittler</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <script>
-
       $(document).ready(function(){
-
+        $("abbr.timeago").timeago();
 
         var $tweetcontainer = $('.twittler-container');
         $tweetcontainer.html('');
@@ -61,7 +63,7 @@
               $('body').prepend(tweetModal);
             }).attr("data-target", '#myModal');
             $tweet.text(tweet.message);
-            $timestamp.text(tweet.created_at);
+            $timestamp.text($.timeago(tweet.created_at));
 // onclick="myFunction()"
 
             $tweet.prependTo($tweetwrapper);
@@ -72,7 +74,7 @@
             
 
             // Put in container
-            $tweetwrapper.prependTo($tweetcontainer);
+            $tweetwrapper.prependTo($tweetcontainer).show('slow');
             index += 1;
           }
         }
@@ -90,11 +92,20 @@
     </script>
 
 
-
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-10">
+      <div class="col-md-12 top-bar">
+        <ul class="nav-bar">
+          <a href="Twittler"><li><i class="fa fa-twitter"></i></li></a>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 side-bar"></div>
+      <div class="col-md-5">
         <div class="twittler-container"></div>
+      </div>
+      <div class="col-md-4">
+        
       </div>
     </div>
 
